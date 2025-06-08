@@ -1,6 +1,10 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * SimpleATM simulates a basic ATM interface with core functionalities:
+ * check balance, deposit, and withdraw.
+ */
 public class SimpleATM {
     private static final String CORRECT_PIN = "1234";
     private static final int MAX_PIN_ATTEMPTS = 3;
@@ -32,7 +36,7 @@ public class SimpleATM {
         int attempts = 0;
         while (attempts < MAX_PIN_ATTEMPTS) {
             System.out.print("Enter your 4-digit PIN: ");
-            String enteredPin = scanner.nextLine();
+            String enteredPin = scanner.nextLine().trim();
 
             if (!validatePinFormat(enteredPin)) {
                 System.out.println("Invalid PIN format. Must be exactly 4 digits.");
@@ -52,25 +56,17 @@ public class SimpleATM {
             printMenu();
             try {
                 System.out.print("Enter your choice: ");
-                choice = scanner.nextInt();
+                choice = Integer.parseInt(scanner.nextLine().trim());
+
                 switch (choice) {
                     case 1 -> atm.checkBalance();
-                    case 2 -> {
-                        System.out.print("Enter amount to deposit: $");
-                        double depositAmount = scanner.nextDouble();
-                        atm.deposit(depositAmount);
-                    }
-                    case 3 -> {
-                        System.out.print("Enter amount to withdraw: $");
-                        double withdrawAmount = scanner.nextDouble();
-                        atm.withdraw(withdrawAmount);
-                    }
+                    case 2 -> atm.performDeposit(scanner);
+                    case 3 -> atm.performWithdrawal(scanner);
                     case 4 -> System.out.println("Thank you for using the ATM. Goodbye!");
                     default -> System.out.println("Invalid choice. Please select from 1 to 4.");
                 }
-            } catch (InputMismatchException e) {
-                System.out.println("Invalid input. Please enter a number.");
-                scanner.next(); // Clear input
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a numeric choice.");
             }
         }
     }
@@ -88,29 +84,57 @@ public class SimpleATM {
     }
 
     public void checkBalance() {
-        System.out.printf("Current balance: $%.2f\n", balance);
+        System.out.printf("Current balance: $%.2f%n", balance);
     }
 
-    public void deposit(double amount) {
-        if (isValidAmount(amount)) {
-            balance += amount;
-            System.out.printf("$%.2f deposited successfully.\n", amount);
-        } else {
-            System.out.printf("Invalid deposit amount. Must be between $%.2f and $%.2f.\n",
-                    MIN_TRANSACTION_AMOUNT, MAX_TRANSACTION_LIMIT);
+    public void performDeposit(Scanner scanner) {
+        while (true) {
+            try {
+                System.out.print("Enter amount to deposit: $");
+                double amount = Double.parseDouble(scanner.nextLine().trim());
+                if (isValidAmount(amount)) {
+                    deposit(amount);
+                    break;
+                } else {
+                    System.out.printf("Invalid deposit amount. Must be between $%.2f and $%.2f.%n",
+                            MIN_TRANSACTION_AMOUNT, MAX_TRANSACTION_LIMIT);
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a numeric value.");
+            }
         }
     }
 
-    public void withdraw(double amount) {
-        if (!isValidAmount(amount)) {
-            System.out.printf("Invalid withdraw amount. Must be between $%.2f and $%.2f.\n",
-                    MIN_TRANSACTION_AMOUNT, MAX_TRANSACTION_LIMIT);
-        } else if (amount > balance) {
-            System.out.println("Insufficient funds.");
-        } else {
-            balance -= amount;
-            System.out.printf("$%.2f withdrawn successfully.\n", amount);
+    public void performWithdrawal(Scanner scanner) {
+        while (true) {
+            try {
+                System.out.print("Enter amount to withdraw: $");
+                double amount = Double.parseDouble(scanner.nextLine().trim());
+                if (!isValidAmount(amount)) {
+                    System.out.printf("Invalid withdraw amount. Must be between $%.2f and $%.2f.%n",
+                            MIN_TRANSACTION_AMOUNT, MAX_TRANSACTION_LIMIT);
+                } else if (amount > balance) {
+                    System.out.println("Insufficient funds.");
+                } else {
+                    withdraw(amount);
+                    break;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a numeric value.");
+            }
         }
+    }
+
+    private void deposit(double amount) {
+        balance += amount;
+        System.out.printf("$%.2f deposited successfully.%n", amount);
+        checkBalance();
+    }
+
+    private void withdraw(double amount) {
+        balance -= amount;
+        System.out.printf("$%.2f withdrawn successfully.%n", amount);
+        checkBalance();
     }
 
     private boolean isValidAmount(double amount) {
@@ -121,4 +145,3 @@ public class SimpleATM {
         return balance;
     }
 }
-   

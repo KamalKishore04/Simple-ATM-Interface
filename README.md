@@ -1,56 +1,56 @@
-# SimpleATM
+## SimpleATM - Java Console Application
 
-A simple console-based Java application that simulates the core functionalities of an ATM (Automated Teller Machine).
+A basic command-line ATM simulation built in Java. This program supports user authentication, balance inquiry, deposit, and withdrawal functionality with error handling and input validation.
 
-## 🚀 Features
 
-- ✅ Secure 4-digit PIN authentication (with 3 attempts)
-- 💰 Balance inquiry
-- ➕ Deposit money (with validation and max limit)
-- ➖ Withdraw money (with validation and balance check)
-- 🔁 Robust error handling and graceful user interaction
-- ❌ Action cancellation (e.g., deposit or withdrawal)
 
-## 🧰 Technologies Used
+## Features:-
+1. User PIN authentication (3 attempts)
+2. Check account balance
+3. Deposit money with validation
+4. Withdraw money with balance checks
+5. Input validation and error recovery
+6. Simple, user-friendly console interface
 
-- Java (JDK 8 or later)
-- Console I/O using `Scanner`
-- Exception handling for robust user interaction
 
-## 📋 Usage
 
-1. **Compile the code:**
-   ```bash
-   javac SimpleATM.java
-   ```
+## Project Structure:-
+ATMApp/
+│
+├── SimpleATM.java      # Main Java program
+└── README.md           # Project documentation (this file)
 
-2. **Run the application:**
-   ```bash
-   java SimpleATM
-   ```
 
-3. **Default PIN:** `1234`
+## Requirements
+Java Development Kit (JDK 11 or higher)
+VS Code, IntelliJ, or any terminal with javac and java
 
-## 📦 Structure
 
-- `SimpleATM.java` - Contains all logic including authentication, balance operations, and user event handling.
+## How to Run:-
+1. Clone or Download the Repository
+2. Compile the Code
+3. Run the Program
 
-## 🛡️ Validation & Error Handling
 
-- PIN must be exactly 4 digits.
-- Transaction amounts must be between $1.00 and $10,000.00.
-- Handles invalid inputs using `try-catch` blocks.
-- Graceful exit on invalid attempts or user cancellation.
+## Sample Interaction:-
+Welcome to the ATM!
+Enter your 4-digit PIN: ****
+--- ATM MENU ---
+1. Check Balance
+2. Deposit Money
+3. Withdraw Money
+4. Exit
+Enter your choice: 1
+Current balance: $1000.00
 
-## 📌 Guidelines Followed
 
-- ✔ Core Feature Implementation
-- ✔ Error Handling & Robustness
-- ✔ Integration of Components
-- ✔ Event Handling & Processing
-- ✔ Data Validation
-- ✔ Code Quality & Innovation
+## Configuration:-
+You can update the initial balance or PIN directly in the SimpleATM.java file:
+SimpleATM atm = new SimpleATM(1000.0);     // Set initial balance
+private static final String CORRECT_PIN = "1234"; // Set custom PIN
 
-## 📄 License
 
-This project is open source and free to use.
+## License:-
+This project is free to use.
+
+

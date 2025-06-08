@@ -39,8 +39,10 @@ Enter your 4-digit PIN: ****
 2. Deposit Money
 3. Withdraw Money
 4. Exit
-Enter your choice: 1
-Current balance: $1000.00
+
+5. Output:-
+5.1.Enter your choice: 1
+5.2.Current balance: $1000.00
 
 
 ## Configuration:-

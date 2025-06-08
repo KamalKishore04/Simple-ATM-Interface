@@ -15,15 +15,14 @@ A basic command-line ATM simulation built in Java. This program supports user au
 
 
 ## Project Structure:-
-ATMApp/
-│
-├── SimpleATM.java      # Main Java program
-└── README.md           # Project documentation (this file)
+
+1. SimpleATM.java      # Main Java program
+2. README.md           # Project documentation (this file)
 
 
 ## Requirements
-Java Development Kit (JDK 11 or higher)
-VS Code, IntelliJ, or any terminal with javac and java
+1. Java Development Kit (JDK 11 or higher)
+2. VS Code, IntelliJ, or any terminal with javac and java
 
 
 ## How to Run:-

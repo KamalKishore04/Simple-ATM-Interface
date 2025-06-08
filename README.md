@@ -53,8 +53,4 @@ A simple console-based Java application that simulates the core functionalities 
 
 ## 📄 License
 
-This project is open source and free to use under the [MIT License](https://opensource.org/licenses/MIT).
-
----
-
-🛠️ Built with care to simulate real-world ATM interactions in a simple console interface.
+This project is open source and free to use.

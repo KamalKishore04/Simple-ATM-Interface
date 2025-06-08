@@ -1,4 +1,3 @@
-
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -33,7 +32,7 @@ public class SimpleATM {
             System.out.print("Enter your 4-digit PIN: ");
             String enteredPin = scanner.nextLine();
 
-            if (!enteredPin.matches("\d{4}")) {
+            if (!enteredPin.matches("\\d{4}")) {
                 System.out.println("Invalid PIN format. Must be exactly 4 digits.");
             } else if (enteredPin.equals(CORRECT_PIN)) {
                 return true;
@@ -132,3 +131,7 @@ public class SimpleATM {
         return amount >= MIN_TRANSACTION_AMOUNT && amount <= MAX_TRANSACTION_LIMIT;
     }
 }
+
+
+   
+   

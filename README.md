@@ -45,8 +45,8 @@ Current balance: $1000.00
 
 ## Configuration:-
 You can update the initial balance or PIN directly in the SimpleATM.java file:
-SimpleATM atm = new SimpleATM(1000.0);     // Set initial balance
-private static final String CORRECT_PIN = "1234"; // Set custom PIN
+1. SimpleATM atm = new SimpleATM(1000.0);     // Set initial balance
+2. private static final String CORRECT_PIN = "1234"; // Set custom PIN
 
 
 ## License:-

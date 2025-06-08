@@ -14,16 +14,18 @@ public class SimpleATM {
     }
 
     public static void main(String[] args) {
-        try (Scanner scanner = new Scanner(System.in)) {
-            SimpleATM atm = new SimpleATM(1000.0);
-            System.out.println("Welcome to the ATM!");
+        Scanner scanner = new Scanner(System.in);
+        SimpleATM atm = new SimpleATM(1000.0);
 
-            if (authenticateUser(scanner)) {
-                atm.runEventLoop(scanner);
-            } else {
-                System.out.println("Too many failed attempts. Access denied.");
-            }
+        System.out.println("Welcome to the ATM!");
+
+        if (authenticateUser(scanner)) {
+            runATM(scanner, atm);
+        } else {
+            System.out.println("Too many failed attempts. Access denied.");
         }
+
+        scanner.close();
     }
 
     private static boolean authenticateUser(Scanner scanner) {
@@ -32,7 +34,7 @@ public class SimpleATM {
             System.out.print("Enter your 4-digit PIN: ");
             String enteredPin = scanner.nextLine();
 
-            if (!enteredPin.matches("\\d{4}")) {
+            if (!validatePinFormat(enteredPin)) {
                 System.out.println("Invalid PIN format. Must be exactly 4 digits.");
             } else if (enteredPin.equals(CORRECT_PIN)) {
                 return true;
@@ -44,19 +46,33 @@ public class SimpleATM {
         return false;
     }
 
-    private void runEventLoop(Scanner scanner) {
-        int choice;
-        do {
+    private static void runATM(Scanner scanner, SimpleATM atm) {
+        int choice = -1;
+        while (choice != 4) {
             printMenu();
-            choice = getUserChoice(scanner);
-            switch (choice) {
-                case 1 -> handleCheckBalance();
-                case 2 -> handleDeposit(scanner);
-                case 3 -> handleWithdraw(scanner);
-                case 4 -> System.out.println("Thank you for using the ATM. Goodbye!");
-                default -> System.out.println("Invalid choice. Please select from 1 to 4.");
+            try {
+                System.out.print("Enter your choice: ");
+                choice = scanner.nextInt();
+                switch (choice) {
+                    case 1 -> atm.checkBalance();
+                    case 2 -> {
+                        System.out.print("Enter amount to deposit: $");
+                        double depositAmount = scanner.nextDouble();
+                        atm.deposit(depositAmount);
+                    }
+                    case 3 -> {
+                        System.out.print("Enter amount to withdraw: $");
+                        double withdrawAmount = scanner.nextDouble();
+                        atm.withdraw(withdrawAmount);
+                    }
+                    case 4 -> System.out.println("Thank you for using the ATM. Goodbye!");
+                    default -> System.out.println("Invalid choice. Please select from 1 to 4.");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a number.");
+                scanner.next(); // Clear input
             }
-        } while (choice != 4);
+        }
     }
 
     private static void printMenu() {
@@ -67,71 +83,42 @@ public class SimpleATM {
         System.out.println("4. Exit");
     }
 
-    private static int getUserChoice(Scanner scanner) {
-        System.out.print("Enter your choice: ");
-        String input = scanner.nextLine();
-        try {
-            return Integer.parseInt(input);
-        } catch (NumberFormatException e) {
-            return -1;
-        }
+    private static boolean validatePinFormat(String pin) {
+        return pin.matches("\\d{4}");
     }
 
-    private void handleCheckBalance() {
+    public void checkBalance() {
         System.out.printf("Current balance: $%.2f\n", balance);
     }
 
-    private void handleDeposit(Scanner scanner) {
-        System.out.print("Enter amount to deposit (or type 'cancel' to return): $");
-        String input = scanner.nextLine();
-        if (input.equalsIgnoreCase("cancel")) {
-            System.out.println("Deposit cancelled.");
-            return;
-        }
-
-        try {
-            double amount = Double.parseDouble(input);
-            if (isValidAmount(amount)) {
-                balance += amount;
-                System.out.printf("$%.2f deposited successfully.\n", amount);
-            } else {
-                System.out.printf("Invalid deposit amount. Must be between $%.2f and $%.2f.\n",
-                        MIN_TRANSACTION_AMOUNT, MAX_TRANSACTION_LIMIT);
-            }
-        } catch (NumberFormatException e) {
-            System.out.println("Invalid input. Please enter a numeric amount.");
+    public void deposit(double amount) {
+        if (isValidAmount(amount)) {
+            balance += amount;
+            System.out.printf("$%.2f deposited successfully.\n", amount);
+        } else {
+            System.out.printf("Invalid deposit amount. Must be between $%.2f and $%.2f.\n",
+                    MIN_TRANSACTION_AMOUNT, MAX_TRANSACTION_LIMIT);
         }
     }
 
-    private void handleWithdraw(Scanner scanner) {
-        System.out.print("Enter amount to withdraw (or type 'cancel' to return): $");
-        String input = scanner.nextLine();
-        if (input.equalsIgnoreCase("cancel")) {
-            System.out.println("Withdrawal cancelled.");
-            return;
-        }
-
-        try {
-            double amount = Double.parseDouble(input);
-            if (!isValidAmount(amount)) {
-                System.out.printf("Invalid withdraw amount. Must be between $%.2f and $%.2f.\n",
-                        MIN_TRANSACTION_AMOUNT, MAX_TRANSACTION_LIMIT);
-            } else if (amount > balance) {
-                System.out.println("Insufficient funds.");
-            } else {
-                balance -= amount;
-                System.out.printf("$%.2f withdrawn successfully.\n", amount);
-            }
-        } catch (NumberFormatException e) {
-            System.out.println("Invalid input. Please enter a numeric amount.");
+    public void withdraw(double amount) {
+        if (!isValidAmount(amount)) {
+            System.out.printf("Invalid withdraw amount. Must be between $%.2f and $%.2f.\n",
+                    MIN_TRANSACTION_AMOUNT, MAX_TRANSACTION_LIMIT);
+        } else if (amount > balance) {
+            System.out.println("Insufficient funds.");
+        } else {
+            balance -= amount;
+            System.out.printf("$%.2f withdrawn successfully.\n", amount);
         }
     }
 
     private boolean isValidAmount(double amount) {
         return amount >= MIN_TRANSACTION_AMOUNT && amount <= MAX_TRANSACTION_LIMIT;
     }
+
+    public double getBalance() {
+        return balance;
+    }
 }
-
-
-   
    

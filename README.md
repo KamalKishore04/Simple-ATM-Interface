@@ -5,19 +5,18 @@ A basic command-line ATM simulation built in Java. This program supports user au
 
 
 ## Features:-
-1. User PIN authentication (3 attempts)
-2. Check account balance
-3. Deposit money with validation
-4. Withdraw money with balance checks
-5. Input validation and error recovery
-6. Simple, user-friendly console interface
+1.User Authentication: Secure 4-digit PIN authentication with limited attempts.
+2.Balance Inquiry: View current account balance.
+3.Deposit Money:Add funds to the account with input validation and limits.
+4.Withdraw Money:Withdraw funds, ensuring sufficient balance and valid input.
+5.Transaction History:View a detailed log of all transactions including deposits, withdrawals, failed attempts, and balance inquiries.
 
 
 
 ## Project Structure:-
 
-1. SimpleATM.java      # Main Java program
-2. README.md           # Project documentation (this file)
+1. SimpleATM.java      
+2. README.md           
 
 
 ## Requirements
@@ -38,16 +37,21 @@ Enter your 4-digit PIN: ****
 1. Check Balance
 2. Deposit Money
 3. Withdraw Money
-4. Exit
+4. View Transaction History
+5.Exit
 
  Enter your choice: 1                             
  Current balance: $1000.00
 
 
-## Configuration:-
-You can update the initial balance or PIN directly in the SimpleATM.java file:
-1. SimpleATM atm = new SimpleATM(1000.0);     // Set initial balance
-2. private static final String CORRECT_PIN = "1234"; // Set custom PIN
+## Assumptions and Limitations
+1. The initial balance is hardcoded to $1000.00 at startup.
+2. The correct PIN is hardcoded as 1234.
+3. Transactions are stored only in memory during runtime (no persistence).
+4. Maximum transaction limit per deposit or withdrawal is $10,000.00.
+5. Minimum transaction amount is $1.00.
+
+
 
 
 ## License:-

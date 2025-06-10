@@ -38,7 +38,7 @@ Enter your 4-digit PIN: ****
 2. Deposit Money
 3. Withdraw Money
 4. View Transaction History
-5.Exit
+5. Exit
 
  Enter your choice: 1                             
  Current balance: $1000.00

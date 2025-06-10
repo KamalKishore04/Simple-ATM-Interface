@@ -5,11 +5,11 @@ A basic command-line ATM simulation built in Java. This program supports user au
 
 
 ## Features:-
-1.User Authentication: Secure 4-digit PIN authentication with limited attempts.
-2.Balance Inquiry: View current account balance.
-3.Deposit Money:Add funds to the account with input validation and limits.
-4.Withdraw Money:Withdraw funds, ensuring sufficient balance and valid input.
-5.Transaction History:View a detailed log of all transactions including deposits, withdrawals, failed attempts, and balance inquiries.
+1. User Authentication: Secure 4-digit PIN authentication with limited attempts.
+2. Balance Inquiry: View current account balance.
+3. Deposit Money:Add funds to the account with input validation and limits.
+4. Withdraw Money:Withdraw funds, ensuring sufficient balance and valid input.
+5. Transaction History:View a detailed log of all transactions including deposits, withdrawals, failed attempts, and balance inquiries.
 
 
 
